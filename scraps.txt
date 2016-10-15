@@ -1,0 +1,2 @@
+// how to start the server with enough power to process the 200+ mb excel file
+node --max_old_space_size=4096 server/app.js
