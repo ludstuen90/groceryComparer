@@ -7,6 +7,8 @@ var app = express();
 var xlsxtojson = require("xlsx-to-json-lc");
 var xlstojson = require("xls-to-json-lc");
 
+app.use(express.static('public'));
+
 var storage = multer.diskStorage({
   destination: function(req, file, cb){
     cb(null, './public/uploads/');
@@ -56,7 +58,9 @@ router.post('/1', function(req, res) {
                 if(err) {
                     return res.json({error_code:1,err_desc:err, data: null});
                 }
-                res.json({error_code:0,err_desc:null, data: result});
+                // res.json({error_code:0,err_desc:null, data: result});
+                console.log('we made it here, all is swell.');
+                res.redirect('/upload2view');
             });
         } catch (e){
             res.json({error_code:1,err_desc:"Corupted excel file"});
@@ -94,7 +98,7 @@ router.post('/2', function(req, res) {
                 if(err) {
                     return res.json({error_code:1,err_desc:err, data: null});
                 }
-                res.json({error_code:0,err_desc:null, data: result});
+                res.redirect('/success');
             });
         } catch (e){
             res.json({error_code:1,err_desc:"Corupted excel file"});

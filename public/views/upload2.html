@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="IOT">
+  <head>
+    <meta charset="utf-8">
+    <title>Grocer Purchase Analyzer</title>
+
+<!-- Stylesheets -->
+<link rel="stylesheet" href="vendors/bootstrap.min.css"></link>
+<link rel="stylesheet" href="assets/sheetrock.css"></link>
+
+<!-- Scripts -->
+<script type="text/javascript" src="vendors/angular.min.js"></script>
+<script type="text/javascript" src="scripts/clientApp.js"></script>
+  </head>
+
+
+  <body ng-controller="baseController">
+
+    <h1>Second Upload Page</h1>
+
+    <p>Use the page below to upload your second file.</p>
+    <form id        =  "uploadForm"
+      enctype   =  "multipart/form-data"
+      action    =  "upload/2"
+      method    =  "post"
+  >
+
+  <input type="file" name="file" />
+  <input type="submit" value="Upload" name="submit">
+  </form>
+
+  </body>
+</html>
