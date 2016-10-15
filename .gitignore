@@ -3,4 +3,5 @@
 .DS_Store
 *.xlsx
 *.xls
-/public/uploads
+1.json
+2.json
