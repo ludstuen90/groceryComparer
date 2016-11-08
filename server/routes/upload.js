@@ -69,13 +69,32 @@ router.post('/1', function(req, res) {
 });
 
 router.get('/3', function(req, res){
-  res.send('hi');
+  if(typeof require !== 'undefined') XLSX = require('xlsx');
+  var workbook = XLSX.readFile('test.xlsx');
+  /* DO SOMETHING WITH workbook HERE */
+
+  var sheet_name_list = workbook.SheetNames;
+sheet_name_list.forEach(function(y) { /* iterate through sheets */
+  var worksheet = workbook.Sheets[y];
+  var test = "";
+  for (z in worksheet) {
+    /* all keys that do not begin with "!" correspond to cell addresses */
+    if(z[0] === '!') continue;
+    //  test += ( worksheet[z].v);
+    //  test += (y + "!" + z + "=" + JSON.stringify(worksheet[z].v));
+    test += (y + "!" + z + "=" + JSON.stringify(worksheet[z].v));
+    // console.log(y + "!" + z + "=" + JSON.stringify(worksheet[z].v));
+    // console.log(test[0]);
+    // res.send(test);
+  }
+  res.json(test);
+});
 
 
 
 
 
-  
+
 });
 
 
