@@ -79,15 +79,21 @@ sheet_name_list.forEach(function(y) { /* iterate through sheets */
   var test = "";
   for (z in worksheet) {
     /* all keys that do not begin with "!" correspond to cell addresses */
-    if(z[0] === '!') continue;
-    //  test += ( worksheet[z].v);
-    //  test += (y + "!" + z + "=" + JSON.stringify(worksheet[z].v));
-    test += (y + "!" + z + "=" + JSON.stringify(worksheet[z].v));
-    // console.log(y + "!" + z + "=" + JSON.stringify(worksheet[z].v));
-    // console.log(test[0]);
-    // res.send(test);
+    if(z[0] === '!') {
+      test += ',BLANKROW,';
+    }
+    else {
+      //  test += ( worksheet[z].v);
+      //  test += (y + "!" + z + "=" + JSON.stringify(worksheet[z].v));
+      test += (y + "!" + z + "=" + worksheet[z].v);
+      // console.log(y + "!" + z + "=" + JSON.stringify(worksheet[z].v));
+      // console.log(test[0]);
+      // res.send(test);
+
+    }
+
   }
-  res.json(test);
+  res.json(JSON.stringify(test));
 });
 
 
