@@ -68,6 +68,16 @@ router.post('/1', function(req, res) {
     });
 });
 
+router.get('/3', function(req, res){
+  res.send('hi');
+
+
+
+
+
+  
+});
+
 
 router.post('/2', function(req, res) {
     var exceltojson;
