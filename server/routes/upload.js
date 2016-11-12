@@ -76,8 +76,18 @@ router.get('/3', function(req, res){
   var sheet_name_list = workbook.SheetNames;
 sheet_name_list.forEach(function(y) { /* iterate through sheets */
   var worksheet = workbook.Sheets[y];
+
+  var testExample =  XLSX.utils.sheet_to_json(workbook.Sheets["Lowest Unit Cost 4 Weeks Out"]);
+  res.send(testExample);
+  res.end();
+
+
+
+  // CODE WITHIN THIS SECTION MIGHT NOT WORK, KEEP ALL THE SAME //
+
   var test = "";
-  for (z in worksheet) {
+
+  for (var z in worksheet) {
     /* all keys that do not begin with "!" correspond to cell addresses */
     if(z[0] === '!') {
       test += ',BLANKROW,';
@@ -93,7 +103,13 @@ sheet_name_list.forEach(function(y) { /* iterate through sheets */
     }
 
   }
-  res.json(JSON.stringify(test));
+  // res.json(JSON.stringify(test));
+
+
+// END CODE THAT WON'T WORK
+
+
+
 });
 
 

@@ -1,2 +1,13 @@
 // how to start the server with enough power to process the 200+ mb excel file
 node --max_old_space_size=4096 server/app.js
+
+
+
+DATABASE TABLE SCRAPS
+CREATE TABLE deals (DC varchar, ITEM integer, ITEMUPC integer, DESCRIPTION varchar, PACK integer, SIZE varchar, DEALWEEK varchar, DEALAMT integer, DEALP integer, BASECASECOST integer, NETCASECOST integer, NETUNITCOST integer, D1 varchar, D2 varchar, D3 varchar, D4 varchar, D7 varchar, D8 varchar, D9 varchar, D10 varchar, D11 varchar, D12 varchar, D13 varchar, PALLETSHIPPER varchar, VENDORPALLET integer, SVPALLET integer, PURCHFLAG integer, LIMITORDERDAYS varchar, MSIRESTR varchar, EBOOK varchar, SOSUPPLY varchar, MINQTY varchar, SRPREQ varchar, MAXQTY varchar, BOOKEDORDERS varchar, ORDERTYPE varchar, VENDORNO integer, VENDORNAME varchar, PRIVATELABEL varchar, MYPRODUCTGROUP varchar, SVPRODUCTGRP varchar, CLASSGRP varchar, CLASSSV varchar, SUBCLASS varchar, VARIETY varchar);
+
+
+COPY deals FROM '/Users/lukasudstuen/Desktop/deepestCSV.csv' DELIMITER ',' CSV;
+
+create table zip_codes (ZIP char(5), LATITUDE double precision, LONGITUDE double precision,
+CITY varchar, STATE char(2), COUNTY varchar, ZIP_CLASS varchar);
