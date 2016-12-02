@@ -1,2 +1,25 @@
 // how to start the server with enough power to process the 200+ mb excel file
 node --max_old_space_size=4096 server/app.js
+
+
+OVERVIEW OF PROCESS:
+*Download Spreadsheets
+*Remove all headings from the spreadsheets, and remove dollar sign formattings
+*Upload Spreadsheets to Server
+*Run queries, as listed out below
+
+
+CREATE TABLE deals (dc varchar, item integer, itemupc bigint, brand varchar, description varchar, pack integer, size varchar, dealwk varchar, dealamt float, dealprct varchar ,basecasecost float,ncc float, nuc float,d1 decimal ,d2 decimal,d3 decimal, d4 decimal ,d5 decimal , d6 decimal,d7 decimal, d8 decimal, d9 decimal, d10 decimal,palletshipper varchar , vendorpalle integer , SVPallet integer ,purchflag varchar ,lod varchar ,msir varchar ,ebookltdays varchar, sos varchar,minqty varchar, srpreq varchar , maxqty varchar,boo varchar,ot varchar, vendorno integer, vendorna varchar,privatelabel varchar,mpg varchar, svpg varchar,cg varchar,class varchar,subclass varchar,variety varchar);
+
+COPY deals FROM '/Users/lukasudstuen/Desktop/supervalu/deepestCSV.csv' DELIMITER ',' CSV;
+
+CREATE TABLE smalldata (evo integer, descrptn varchar, addldsc varchar, upc bigint, dpt varchar, supervalu float, casevndr varchar, caseqty varchar, casecost varchar, unitcost float);
+
+COPY smalldata FROM '/Users/lukasudstuen/Desktop/supervalu/smldta.csv' DELIMITER ',' CSV;
+
+
+SELECT * INTO results FROM deals, smalldata WHERE smalldata.upc = deals.itemupc;
+
+SELECT brand, description, itemupc, LEAST(d1, d2, d3, d4, d5, d6, d7, d8, d9, d10) INTO coffeebeans FROM results;
+
+select column_name from information_schema.columns where table_name='results';
