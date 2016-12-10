@@ -16,9 +16,22 @@
 
   <body ng-controller="baseController">
 
-    <h1>Grocery Comparer App</h1>
+    <h1>First Upload Page</h1>
 
-    <p><a href="/upload1view">Click here to begin the upload process.</a></p>
+    <p>Use the page below to upload your first file.</p>
+    <form id        =  "uploadForm"
+      enctype   =  "multipart/form-data"
+      action    =  "upload/1"
+      method    =  "post"
+  >
+
+  <input type="file" name="file" />
+  <input type="submit" value="Upload" name="submit">
+  </form>
+
+  <button ng-click="delete()">Delete Files</button>
+
+  <p><a href="/success">Success</a></p>
 
   </body>
 </html>

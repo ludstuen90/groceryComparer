@@ -15,6 +15,31 @@ router.get('/', function (req, res){
   res.sendFile(path.resolve('public/views/index.html'));
 });
 
+
+router.get('/upload1view', function(req, res) {
+
+  async.series([
+    function(callback){
+          var dataPath = ('/Users/lukasudstuen/softwareProjects/groceryComparer/public/uploads');
+          rimraf(dataPath, function(error){
+            console.log('Error: ', error);
+            callback();
+          });
+    },
+    function(callback) {
+      fs.mkdirsSync('/Users/lukasudstuen/softwareProjects/groceryComparer/public/uploads');
+    // res.sendStatus(200);
+    callback();
+  },
+  function(callback) {
+    res.sendFile(path.resolve('public/views/upload1.html'));
+    callback();
+  }
+  ]);
+
+});
+
+
 router.get('/upload2view', function(req, res){
   res.sendFile(path.resolve('public/views/upload2.html'));
 });
