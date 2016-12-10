@@ -6,6 +6,9 @@ var multer = require('multer');
 var app = express();
 var xlsxtojson = require("xlsx-to-json-lc");
 var xlstojson = require("xls-to-json-lc");
+var fs = require('fs-extra');
+var rimraf = require('rimraf');
+var async = require('async');
 
 app.use(bodyParser.json());
 
