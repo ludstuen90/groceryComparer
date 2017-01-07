@@ -20,6 +20,7 @@ router.get('/upload1view', function(req, res) {
 
   async.series([
     function(callback){
+        // Deletes the uploads file direcotry. This executes whenever a new upload page 1 is loaded
           var dataPath = ('/Users/lukasudstuen/softwareProjects/groceryComparer/public/uploads');
           rimraf(dataPath, function(error){
             console.log('Error: ', error);
@@ -27,6 +28,7 @@ router.get('/upload1view', function(req, res) {
           });
     },
     function(callback) {
+      // Creates a new uploads directory
       fs.mkdirsSync('/Users/lukasudstuen/softwareProjects/groceryComparer/public/uploads');
     // res.sendStatus(200);
     callback();
