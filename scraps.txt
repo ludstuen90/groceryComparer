@@ -8,15 +8,19 @@ OVERVIEW OF PROCESS:
 *Upload Spreadsheets to Server
 *Run queries, as listed out below
 
-CREATE TABLE deals (dc varchar, item integer, itemupc bigint, brand varchar, description varchar, pack integer, size varchar, dealwk varchar, dealamt float, dealprct varchar ,basecasecost float,ncc float, nuc float,d1 decimal ,d2 decimal,d3 decimal, d4 decimal ,d5 decimal , d6 decimal,d7 decimal, d8 decimal, d9 decimal, d10 decimal,palletshipper varchar , vendorpalle integer , SVPallet integer ,purchflag varchar ,lod varchar ,msir varchar ,ebookltdays varchar, sos varchar,minqty varchar, srpreq varchar , maxqty varchar,boo varchar,ot varchar, vendorno integer, vendorna varchar,privatelabel varchar,mpg varchar, svpg varchar,cg varchar,class varchar,subclass varchar,variety varchar);
 
-COPY deals FROM '/Users/lukasudstuen/Desktop/supervalu/deepestCSV.csv' DELIMITER ',' CSV;
+-- /// Create supervalu deals table /// --
+CREATE TABLE supervaludeals (itemupc bigint, brand varchar, description varchar, pack integer, size varchar, mxdlwk varchar, mxdlamt float, mxdealprct decimal, basecasecost float, netcasecost float, netunitcost float, w1 decimal, w2 decimal, w3 decimal, w4 decimal, w5 decimal, w6 decimal, w7 decimal, w8 decimal, w9 decimal, w10 decimal, palletshipper varchar, msir varchar);
 
-CREATE TABLE smalldata (evo integer, descrptn varchar, addldsc varchar, upc bigint, dpt varchar, supervalu float, casevndr varchar, caseqty varchar, casecost varchar, unitcost float);
+-- /// Copy parsed supervalu data to table /// ---
+COPY supervaludeals FROM '/Users/lukasudstuen/Desktop/GOODGROCER/supervaludata.csv' DELIMITER ',' CSV;
 
-COPY smalldata FROM '/Users/lukasudstuen/Desktop/supervalu/smldta.csv' DELIMITER ',' CSV;
+-- /// Create Good Grocer table /// --
+CREATE TABLE goodgrocerdata (evo integer, descrptn varchar, addldsc varchar, upc bigint, dpt varchar, supervalu float, casevndr varchar, caseqty varchar, casecost varchar, unitcost float);
 
+-- /// Import Good Grocer Data /// --
+COPY goodgrocerdata FROM '/Users/lukasudstuen/Desktop/supervalu/smldta.csv' DELIMITER ',' CSV;
 
-SELECT * INTO results FROM deals, smalldata WHERE smalldata.upc = deals.itemupc;
+-- /// Select from supervaludeals all rows where the UPC in supervaludeals is also contained in goodgrocerdeals.
 
-SELECT brand, description, itemupc, LEAST((d1,'Week1'::text), (d2, 'Week2'::text), (d3, 'Week3'::text), (d4, 'Week4'::text), (d5,'Week5'::text), (d6,'Week6'::text), (d7,'Week7'::text), (d8,'Week8'::text), (d9,'Week9'::text), (d10,'Week10'::text)), d1, d2, d3, d4, d5, d6, d7, d8, d9, d10 FROM results;
+SELECT * INTO results FROM supervaludeals, goodgrocerdata WHERE goodgrocerdata.upc = supervaludeals.itemupc ORDER BY mxdealprct DESC;
