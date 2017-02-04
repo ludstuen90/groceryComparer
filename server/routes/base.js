@@ -8,9 +8,6 @@ var rimraf = require('rimraf');
 
 var async = require('async');
 
-
-
-
 router.get('/', function (req, res){
   res.sendFile(path.resolve('public/views/index.html'));
 });
@@ -38,7 +35,6 @@ router.get('/upload1view', function(req, res) {
     callback();
   }
   ]);
-
 });
 
 

@@ -1,3 +1,16 @@
+FIRST ITERATION OF APP:
+  MANUALLY ALTER THE EXCEL sheets so that they can be uploaded --
+  upload CSV files
+  run specified commands in POSTICO
+  display results
+
+This progarm turns apps into standalone executable files 
+  https://github.com/jxcore/jxcore-release
+
+SECOND ITERATION OF APP:
+  Be able to upload excel files, and then have the computer edit them.
+
+
 // how to start the server with enough power to process the 200+ mb excel file
 node --max_old_space_size=4096 server/app.js
 
