@@ -8,10 +8,12 @@ var xlsxtojson = require("xlsx-to-json-lc");
 var xlstojson = require("xls-to-json-lc");
 var xlsx = require("xlsx");
 var async = require("async");
-var gulp = require("gulp");
-var rename = require("gulp-rename");
+
 
 app.use(express.static('public'));
+
+
+// This section below includes all logic necessary to upload files
 
 var storage = multer.diskStorage({
   destination: function(req, file, cb){
@@ -33,38 +35,33 @@ var upload = multer({ //multer settings
                       callback(null, true);
                   }
               }).single('file');
+// We have abstracted some logic into the fileUpload function so that we can save two different files with different names.
+var fileUpload = function(req, res, filename) {
+  upload(req,res,function(err){
+           if(err){
+                res.json({error_code:1,err_desc: err + ". Sorry, your filed could not be uploaded. Please, try again. ", });
+                return;
+           }
+           /** Multer gives us file info in req.file object */
+           else if (!req.file){
+               res.json({error_code:1,err_desc:"No file passed"});
+               return;
+           }
+         });
+}
 
 router.post('/1', function(req, res) {
-
-  console.log(req.body)
   async.series([
       function(callback) {
           // do some stuff ...
           req.params.filename = 'supervaludata';
-          upload(req,res,function(err){
-
-
-                   if(err){
-                        res.json({error_code:1,err_desc: err + ". Sorry, your filed could not be uploaded. Please, try again. ", });
-                        return;
-                   }
-                   /** Multer gives us file info in req.file object */
-                   else if (!req.file){
-                       res.json({error_code:1,err_desc:"No file passed"});
-                       return;
-                   }
-                 });
+          fileUpload(req, res)
           callback(null, 'one');
       },
       function(callback) {
           // do some more stuff ...
               res.redirect('/upload2view');
           callback(null, 'two');
-      },
-      function(callback) {
-        console.log('we made it to the third console.log!!!!!');
-
-
       }
   ],
   // optional callback
@@ -73,41 +70,20 @@ router.post('/1', function(req, res) {
         console.log("We have now received an error of: ", err);
         console.log("With the results of: ", results);
   });
-
 });
 
-
 router.post('/2', function(req, res) {
-
-    console.log(req.body)
     async.series([
         function(callback) {
             // do some stuff ...
             req.params.filename = 'goodgrocerdata';
-            upload(req,res,function(err){
-
-
-                     if(err){
-                          res.json({error_code:1,err_desc: err + ". Sorry, your filed could not be uploaded. Please, try again. ", });
-                          return;
-                     }
-                     /** Multer gives us file info in req.file object */
-                     else if (!req.file){
-                         res.json({error_code:1,err_desc:"No file passed"});
-                         return;
-                     }
-                   });
+            fileUpload(req, res)
             callback(null, 'one');
         },
         function(callback) {
             // do some more stuff ...
                 res.redirect('/success');
             callback(null, 'two');
-        },
-        function(callback) {
-          console.log('we made it to the third console.log!!!!!');
-
-
         }
     ],
     // optional callback
@@ -116,7 +92,6 @@ router.post('/2', function(req, res) {
           console.log("We have now received an error of: ", err);
           console.log("With the results of: ", results);
     });
-
 });
 
 module.exports = router;
