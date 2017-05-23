@@ -161,13 +161,37 @@ router.get('/success', function(req, res){
       },
 
 
+      function(callback) {
+          // do some more stuff ...
+          compiled_prices = [];
+
+          pg.connect(connectionString, function(err, client, done){
+          var searchClient = ("SELECT * FROM results;");
+          var query = client.query(searchClient);
+          query.on('row', function(row){
+            compiled_prices.push(row);
+          });
+          query.on('end', function(){
+            done();
+            callback(null, 'seven');
+            res.send(compiled_prices)
+          });
+          if(err){
+            console.log('logging an err: ', err);
+          }
+          });
+              // res.send('we are the beasts of the world');
+          // callback(null, 'two');
+      },
+
+
 
 
   ],
   // optional callback
   function(err, results) {
       // results is now equal to ['one', 'two']
-      res.send('we are the beasts of the world');
+      // res.send('we are the beasts of the world');
         console.log("We have now received an error of: ", err);
         console.log("With the results of: ", results);
   });
