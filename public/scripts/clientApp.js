@@ -19,12 +19,21 @@ var all_dates = [];
        console.log(response.data);
        $scope.analysis_results = response.data;
        console.log("TOTAL LENGTH IS: ", $scope.analysis_results.length);
-      for (i=1; i <= $scope.analysis_results.length; i++){
+      for (var i=0; i < $scope.analysis_results.length; i++){
+        // console.log('i is : ', i, 'i.mxdlwk is: ', $scope.analysis_results[i].mxdlwk, ' and ', all_dates.includes(i.mxdlwk));
+// all_dates.includes(i.mxdlwk)
 
-        
-      }
+        if (all_dates.includes($scope.analysis_results[i].mxdlwk)){
+          // console.log('made it to the innermost');
+            all_dates += i.mxdlwk;
+        } else {
+          console.log('made it to the outer most');
+        }
+
+      };
+      console.log('all dates is: ', all_dates)
 
 
-     });
+});
 
 }]);
