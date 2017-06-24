@@ -5,14 +5,12 @@ var app = express();
 app.use( bodyParser.json() );
 app.use(bodyParser.urlencoded({extended:false}));
 
-
 var router = express.Router();
 var fs = require('fs-extra');
 var rimraf = require('rimraf');
 var pg = require('pg');
 // var client = new pg.Client();
 var client = new pg.Client();
-
 
 var async = require('async');
 
@@ -56,13 +54,13 @@ router.get('/upload2view', function(req, res){
   res.sendFile(path.resolve('public/views/upload2.html'));
 });
 
-router.get('/success', function(req, res){
+router.get('/process', function(req, res){
   console.log("We are here in results");
 
 
   async.series([
       function(callback) {
-          // do some stuff ...
+          // DROP ALL PREVIOUS TABLES IF THEY EXIST
           pg.connect(connectionString, function(err, client, done){
           var searchClient = ('DROP TABLE IF EXISTS goodgrocerdata, supervaludeals, results');
           var query = client.query(searchClient);
@@ -76,7 +74,7 @@ router.get('/success', function(req, res){
           });
       },
       function(callback) {
-          // do some more stuff ...
+          // CREATE SUPERVALUE TABLE
           pg.connect(connectionString, function(err, client, done){
           var searchClient = ('CREATE TABLE supervaludeals (itemupc bigint, brand varchar, description varchar, pack integer, size varchar, mxdlwk varchar, mxdlamt float, mxdealprct decimal, basecasecost float, netcasecost float, netunitcost float, w1 decimal, w2 decimal, w3 decimal, w4 decimal, w5 decimal, w6 decimal, w7 decimal, w8 decimal, w9 decimal, w10 decimal, palletshipper varchar, msir varchar)');
           var query = client.query(searchClient);
@@ -94,7 +92,7 @@ router.get('/success', function(req, res){
 
 
       function(callback) {
-          // do some more stuff ...
+          // CREATE GOOD GROCER TABLE
           pg.connect(connectionString, function(err, client, done){
           var searchClient = ('CREATE TABLE goodgrocerdata (evo integer, descrptn varchar, addldsc varchar, upc bigint, dpt varchar, supervalu float, casevndr varchar, caseqty varchar, casecost varchar, unitcost float)');
           var query = client.query(searchClient);
@@ -111,7 +109,7 @@ router.get('/success', function(req, res){
       },
 
       function(callback) {
-          // do some more stuff ...
+          // COPY SUPERVALUE DATA TO TABLE
           pg.connect(connectionString, function(err, client, done){
           var searchClient = ("COPY supervaludeals FROM '/Users/lukasudstuen/softwareProjects/groceryComparer/public/uploads/supervaludata.csv' DELIMITER ',' CSV");
           var query = client.query(searchClient);
@@ -127,7 +125,7 @@ router.get('/success', function(req, res){
           // callback(null, 'two');
       },
       function(callback) {
-          // do some more stuff ...
+          // COPY GOOD GROCER DATA
           pg.connect(connectionString, function(err, client, done){
           var searchClient = ("COPY goodgrocerdata FROM '/Users/lukasudstuen/softwareProjects/groceryComparer/public/uploads/goodgrocerdata.csv' DELIMITER ',' CSV");
           var query = client.query(searchClient);
@@ -156,8 +154,6 @@ router.get('/success', function(req, res){
             console.log('logging an err: ', err);
           }
           });
-              // res.send('we are the beasts of the world');
-          // callback(null, 'two');
       },
 
 
@@ -174,77 +170,41 @@ router.get('/success', function(req, res){
           query.on('end', function(){
             done();
             callback(null, 'seven');
-            res.send(compiled_prices)
+            // res.send(compiled_prices)
+            res.redirect('/success');
           });
           if(err){
             console.log('logging an err: ', err);
           }
           });
-              // res.send('we are the beasts of the world');
-          // callback(null, 'two');
       },
-
-
-
-
   ],
   // optional callback
   function(err, results) {
-      // results is now equal to ['one', 'two']
-      // res.send('we are the beasts of the world');
         console.log("We have now received an error of: ", err);
         console.log("With the results of: ", results);
   });
 
-
-
-
-  //
-  // // connect to our database
-  // client.connect(function (err) {
-  //   if (err) throw err;
-  //
-  //   // execute a query on our database
-  //   client.query('DROP TABLE results', function (err, result) {
-  //     if (err) throw err;
-  //
-  //     // just print the result to the console
-  //     console.log(result.rows[0]); // outputs: { name: 'brianc' }
-  //
-  //     // disconnect the client
-  //     client.end(function (err) {
-  //       if (err) throw err;
-  //     });
-  //   });
-  // });
-  //
-
-// EVERYTHING ABOVE GOOD
-
-
-  // pg.connect(connectionString, function(err, client, done){
-    // This is the query that is creating all the problems. Will need to edit this.
-    // client.query("CREATE TABLE supervaludeals (itemupc bigint, brand varchar, description varchar, pack integer, size varchar, mxdlwk varchar, mxdlamt float, mxdealprct decimal, basecasecost float, netcasecost float, netunitcost float, w1 decimal, w2 decimal, w3 decimal, w4 decimal, w5 decimal, w6 decimal, w7 decimal, w8 decimal, w9 decimal, w10 decimal, palletshipper varchar, msir varchar)");
-    // if(err) {
-    //   done();
-    //   console.log(err);
-    //   return res.status(500).json({success: false, data: err});
-    // }
-    // pg.on( 'error', function(err) {
-    //   console.log('do nothing');
-    // });
-
-  //   console.log("We have made it to the drop table portion");
-  //   client.query ('DROP TABLE results;');
-  //   done();
-  //   pg.end();
-  //   res.sendFile(path.resolve('public/views/success.html'));
-  //
-  //
-  // });
-  // console.log('WE ARE DONE')
-  // res.sendFile(path.resolve('public/views/success.html'));
 });
 
+router.get('/success', function(req, res){
+  res.sendFile(path.resolve('public/views/success.html'))
+});
+
+router.get('/API', function (req, res){
+  compiled_prices = [];
+
+  pg.connect(connectionString, function(err, client, done){
+  var searchClient = ("SELECT * FROM results;");
+  var query = client.query(searchClient);
+  query.on('row', function(row){
+    compiled_prices.push(row);
+  });
+  query.on('end', function(){
+    done();
+    res.send(compiled_prices);
+});
+});
+  });
 
 module.exports = router;

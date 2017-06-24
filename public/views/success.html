@@ -3,26 +3,50 @@
   <head>
     <meta charset="utf-8">
     <title>Grocer Purchase Analyzer</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="vendors/bootstrap.min.css"></link>
+    <link rel="stylesheet" href="assets/sheetrock.css"></link>
 
-<!-- Stylesheets -->
-<link rel="stylesheet" href="vendors/bootstrap.min.css"></link>
-<link rel="stylesheet" href="assets/sheetrock.css"></link>
-
-<!-- Scripts -->
-<script type="text/javascript" src="vendors/angular.min.js"></script>
-<script type="text/javascript" src="scripts/clientApp.js"></script>
-<script type="text/javascript" src="/vendors/shim.js"></script>
-
+    <!-- Scripts -->
+    <script type="text/javascript" src="vendors/angular.min.js"></script>
+    <script type="text/javascript" src="scripts/clientApp.js"></script>
+    <script type="text/javascript" src="/vendors/shim.js"></script>
   </head>
 
-
-  <body ng-controller="baseController">
-
+  <body ng-controller="results">
     <h1>Success!</h1>
 
   <p>All of your files have been uploaded successfully.</p>
 
+<table style="border: 2px solid black;">
+  <tr style="border: 1px solid black;">
+    <td>Item UPC</td>
+    <td>Brand</td>
+    <td>Pack</td>
+    <td>Size</td>
+    <td>Max Deal Week</td>
+    <td>Max Deal Percent</td>
+    <td>Base Case Cost </td>
+    <td>Net Case Cost</td>
+    <td>Net Unit Cost</td>
+  </tr>
+  <tr ng-repeat ="x in analysis_results" style="border: 1px solid black;">
+    <td>{{x.itemupc}}</td>
+    <td>{{x.brand}}</td>
+    <td>{{x.pack}}</td>
+    <td>{{x.size}}</td>
+    <td>{{x.mxdlwk}}</td>
+    <td>{{x.mxdealprct}}</td>
+    <td>{{x.basecasecost}}</td>
+    <td>{{x.netcasecost}}</td>
+    <td>{{x.netunitcost}}</td>
+</tr>
+</table>
+
+      <!--
+  {{ analysis_results }} -->
+
   <p><a href="/">Home</a></p>
-  
+
   </body>
 </html>

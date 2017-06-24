@@ -9,9 +9,7 @@ var xlstojson = require("xls-to-json-lc");
 var xlsx = require("xlsx");
 var async = require("async");
 
-
 app.use(express.static('public'));
-
 
 // This section below includes all logic necessary to upload files
 
@@ -82,7 +80,7 @@ router.post('/2', function(req, res) {
         },
         function(callback) {
             // do some more stuff ...
-                res.redirect('/success');
+                res.redirect('/process');
             callback(null, 'two');
         }
     ],
