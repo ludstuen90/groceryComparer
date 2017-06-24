@@ -195,7 +195,7 @@ router.get('/API', function (req, res){
   compiled_prices = [];
 
   pg.connect(connectionString, function(err, client, done){
-  var searchClient = ("SELECT * FROM results;");
+  var searchClient = ("SELECT * FROM results ORDER BY mxdlwk;");
   var query = client.query(searchClient);
   query.on('row', function(row){
     compiled_prices.push(row);

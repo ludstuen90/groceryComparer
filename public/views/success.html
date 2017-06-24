@@ -14,37 +14,36 @@
   </head>
 
   <body ng-controller="results">
-    <h1>Success!</h1>
+    <h1 id="results">Results</h1>
 
   <p>All of your files have been uploaded successfully.</p>
 
-<table style="border: 2px solid black;">
-  <tr style="border: 1px solid black;">
-    <td>Item UPC</td>
-    <td>Brand</td>
-    <td>Pack</td>
-    <td>Size</td>
-    <td>Max Deal Week</td>
-    <td>Max Deal Percent</td>
-    <td>Base Case Cost </td>
-    <td>Net Case Cost</td>
-    <td>Net Unit Cost</td>
+<table class="table table-striped table-condensed table-hover">
+  <tr >
+    <td><strong>Item UPC</strong></td>
+    <td><strong>Brand</strong></td>
+    <td><strong>Description</strong></td>
+    <td><strong>Pack</strong></td>
+    <td><strong>Size</strong></td>
+    <td><strong>Max Deal Week</strong></td>
+    <td><strong>Max Deal Percent</strong></td>
+    <td><strong>Base Case Cost </strong></td>
+    <td><strong>Net Case Cost</strong></td>
+    <td><strong>Net Unit Cost</strong></td>
   </tr>
-  <tr ng-repeat ="x in analysis_results" style="border: 1px solid black;">
-    <td>{{x.itemupc}}</td>
-    <td>{{x.brand}}</td>
-    <td>{{x.pack}}</td>
-    <td>{{x.size}}</td>
-    <td>{{x.mxdlwk}}</td>
-    <td>{{x.mxdealprct}}</td>
-    <td>{{x.basecasecost}}</td>
-    <td>{{x.netcasecost}}</td>
-    <td>{{x.netunitcost}}</td>
+  <tr ng-repeat ="x in analysis_results" >
+    <td>{{ x.itemupc }}</td>
+    <td>{{ x.brand }}</td>
+    <td>{{ x.description }}</td>
+    <td>{{ x.pack }}</td>
+    <td>{{ x.size }}</td>
+    <td>{{ x.mxdlwk }}</td>
+    <td>{{ x.mxdealprct }}</td>
+    <td>{{ x.basecasecost }}</td>
+    <td>{{ x.netcasecost }}</td>
+    <td>{{ x.netunitcost }}</td>
 </tr>
 </table>
-
-      <!--
-  {{ analysis_results }} -->
 
   <p><a href="/">Home</a></p>
 
