@@ -14,9 +14,19 @@
   </head>
 
   <body ng-controller="results">
-    <h1 id="results">Results</h1>
-
-  <p>All of your files have been uploaded successfully.</p>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <h1 id="results">Results</h1>
+          <p>All of your files have been uploaded successfully.</p>
+        </div>
+        <div class="col-md-4">
+          <br><br>
+          <a href="/"><button type="button" class="btn btn-danger">Start Over</button></a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
 
 <table class="table table-striped table-condensed table-hover">
   <tr >
@@ -45,7 +55,10 @@
 </tr>
 </table>
 
-  <p><a href="/">Home</a></p>
+</div>
+</div>
+</div>
+
 
   </body>
 </html>

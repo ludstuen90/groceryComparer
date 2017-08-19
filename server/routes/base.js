@@ -23,6 +23,10 @@ if(process.env.DATABASE_URL !== undefined) {
     connectionString = 'postgres://localhost:5432/groc';
 }
 
+router.get('/avocado', function(req, res){
+  res.sendFile(path.resolve('public/images/avocado.jpg'));
+});
+
 router.get('/', function (req, res){
   res.sendFile(path.resolve('public/views/index.html'));
 });

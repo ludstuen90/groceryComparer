@@ -18,21 +18,32 @@
 
   <body ng-controller="baseController">
 
-    <h1>First Upload Page</h1>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <h1>First Upload Page</h1>
+        </div>
+        <div class="col-md-4">
+          <br><br>
+          <a href="/"><button type="button" class="btn btn-danger">Start Over</button></a>
+        </div>
+      </div>
 
-    <p>Use the page below to upload your first <b><u>Supervalu</b></u> CSV file.</p>
-    <form id        =  "uploadForm"
-      enctype   =  "multipart/form-data"
-      action    =  "upload/1"
-      method    =  "post"
-  >
+        <div class="row">
+          <div class="col-md-12">
+            <p>Use the page below to upload your first <b><u>Supervalu</b></u> CSV file.</p>
+              <form id        =  "uploadForm"
+                enctype   =  "multipart/form-data"
+                action    =  "upload/1"
+                method    =  "post"
+            >
 
-  <input type="file" name="file" />
-  <input type="submit" value="Upload" name="submit">
-  </form>
-
-  <p><a href="/success">Success</a></p>
-
-  <p><a href="/">Home</a></p>
+            <input type="file" name="file" />
+            <br>
+            <input class="btn btn-success" type="submit" value="Upload" name="submit">
+            </form>
+          </div>
+        </div>
+      </div>
   </body>
 </html>
