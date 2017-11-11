@@ -22,9 +22,9 @@
     "pg": "^6.1.2",
     "rimraf": "^2.5.4",
     "router": "^1.1.4",
-    "xls-to-json-lc": "^0.3.3",
+    "xls-to-json-lc": "^0.3.4",
     "xlsx": "^0.8.1",
-    "xlsx-to-json-lc": "^0.2.5"
+    "xlsx-to-json-lc": "^0.5.0"
   },
   "devDependencies": {},
   "repository": {
